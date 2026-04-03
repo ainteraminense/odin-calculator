@@ -3,10 +3,11 @@ const numbers = document.querySelectorAll("button");
 const operators = document.querySelectorAll(".operator");
 const display = document.querySelector(".result");
 const equalSign = document.querySelector("#equal-sign");
-let isAdditionActive = false;
-let isSubtractionActive = false;
-let isMultiplicationActive = false;
-let isDivisionActive = false;
+// let isAdditionActive = false;
+// let isSubtractionActive = false;
+// let isMultiplicationActive = false;
+// let isDivisionActive = false;
+let operation = "";
 let isNum1Selected = false;
 let num1;
 let num2;
@@ -69,6 +70,8 @@ function displayResult(result) {
     display.textContent = result.toString();
 }
 
+// operations
+
 function add(num1, num2) {
     result = num1 + num2;
     displayResult(result);
@@ -96,26 +99,26 @@ function setOperator() {
             button.addEventListener("click", () => {
             switch (button.id) {
                 case "addition":
-                    isAdditionActive = true;
-                    console.log("Is Addition on: " + isAdditionActive);
+                    operation = "isAdditionActive";
+                    console.log("The operation is: " + operation);
                     removeSelect1EventListeners();
                     addSelect2EventListeners();
                     break;
                 case "subtraction":
-                    isSubtractionActive = true;
-                    console.log("Is Subtraction on: " + isSubtractionActive);
+                    operation = "isSubtractionActive";
+                    console.log("The operation is: " + operation);
                     removeSelect1EventListeners();
                     addSelect2EventListeners();
                     break;
                 case "multiplication":
-                    isMultiplicationActive = true;
-                    console.log("Is Multiplication on: " + isMultiplicationActive);
+                    operation = "isMultiplicationActive";
+                    console.log("The operation is: " + operation);
                     removeSelect1EventListeners();
                     addSelect2EventListeners();
                     break;
                 case "division":
-                    isDivisionActive = true;
-                    console.log("Is Division on: " + isDivisionActive);
+                    operation = "isDivisionActive";
+                    console.log("The operation is: " + operation);
                     removeSelect1EventListeners();
                     addSelect2EventListeners();
                     break;
@@ -126,20 +129,27 @@ function setOperator() {
     })
 }};
 
-function operate() {
-    if (isAdditionActive) {
-        add(num1, num2);
-    } else if (isSubtractionActive) {
-        subtract(num1, num2);
-    } else if (isMultiplicationActive) {
-        multiply(num1, num2);
-    } else if (isDivisionActive) {
-        divide(num1, num2);
-    } else {
-        console.log("Something went wrong");
+function operate(operation, num1, num2) {
+    switch (operation) {
+        case "isAdditionActive":
+            add(num1, num2);
+            break;
+        case "isSubtractionActive":
+            subtract(num1, num2);
+            break;
+        case "isMultiplicationActive":
+            multiply(num1, num2);
+            break;
+        case "isDivisionActive":
+            add(num1, num2);
+            break;
+        default:
+            console.log("Some undefined operation");
     }
 }
 
 addSelect1EventListeners();
 setOperator();
-equalSign.addEventListener("click", operate)
+equalSign.addEventListener("click", () => {
+    return operate(operation, num1, num2);
+});
