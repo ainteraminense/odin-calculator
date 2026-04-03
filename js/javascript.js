@@ -13,6 +13,8 @@ let num1;
 let num2;
 let result;
 
+// setting and removing event listeners
+
 function addSelect1EventListeners() {
     numbers.forEach((button) => {
         if(!button.classList.contains("operator") &&
@@ -57,10 +59,53 @@ function selectNum1(event) {
 function selectNum2(event) {
     if (isNum1Selected) {
         event.target.removeEventListener("click", selectNum1);
+        displayNumber(event.target);
         num2 = Number(event.target.id);
         console.log("num2: " + num2);
     }
 }
+
+function setOperator() {
+    if (selectNum1) {
+        operators.forEach((button) => {
+            button.addEventListener("click", () => {
+            switch (button.id) {
+                case "addition":
+                    operation = "isAdditionActive";
+                    console.log("The operation is: " + operation);
+                    removeSelect1EventListeners();
+                    addSelect2EventListeners();
+                    button.classList.add("operator-selected");
+                    break;
+                case "subtraction":
+                    operation = "isSubtractionActive";
+                    console.log("The operation is: " + operation);
+                    removeSelect1EventListeners();
+                    addSelect2EventListeners();
+                    button.classList.add("operator-selected");
+                    break;
+                case "multiplication":
+                    operation = "isMultiplicationActive";
+                    console.log("The operation is: " + operation);
+                    removeSelect1EventListeners();
+                    addSelect2EventListeners();
+                    button.classList.add("operator-selected");
+                    break;
+                case "division":
+                    operation = "isDivisionActive";
+                    console.log("The operation is: " + operation);
+                    removeSelect1EventListeners();
+                    addSelect2EventListeners();
+                    button.classList.add("operator-selected");
+                    break;
+                default: 
+                console.log("Equal sign was pressed");
+            }
+        })
+    })
+}};
+
+// displaying
 
 function displayNumber(num) {
     display.textContent = num.id;
@@ -93,41 +138,7 @@ function divide(num1, num2) {
     displayResult(result);
 }
 
-function setOperator() {
-    if (selectNum1) {
-        operators.forEach((button) => {
-            button.addEventListener("click", () => {
-            switch (button.id) {
-                case "addition":
-                    operation = "isAdditionActive";
-                    console.log("The operation is: " + operation);
-                    removeSelect1EventListeners();
-                    addSelect2EventListeners();
-                    break;
-                case "subtraction":
-                    operation = "isSubtractionActive";
-                    console.log("The operation is: " + operation);
-                    removeSelect1EventListeners();
-                    addSelect2EventListeners();
-                    break;
-                case "multiplication":
-                    operation = "isMultiplicationActive";
-                    console.log("The operation is: " + operation);
-                    removeSelect1EventListeners();
-                    addSelect2EventListeners();
-                    break;
-                case "division":
-                    operation = "isDivisionActive";
-                    console.log("The operation is: " + operation);
-                    removeSelect1EventListeners();
-                    addSelect2EventListeners();
-                    break;
-                default: 
-                console.log("Equal sign was pressed");
-            }
-        })
-    })
-}};
+
 
 function operate(operation, num1, num2) {
     switch (operation) {

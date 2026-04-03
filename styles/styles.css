@@ -46,6 +46,6 @@ button {
     background-color: #FFCC00;
 }
 
-#equal-sign {
-    background-color: #DDDDDD;
+.operator-selected {
+    background-color: #ffff7c;
 }
