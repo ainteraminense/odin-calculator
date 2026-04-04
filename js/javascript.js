@@ -8,6 +8,7 @@ const equalSign = document.querySelector("#equal-sign");
 // let isMultiplicationActive = false;
 // let isDivisionActive = false;
 let operationString = "";
+let countSetOperator = 0;
 let num1String = "";
 let num2String = "";
 let result;
@@ -58,15 +59,26 @@ function removeSelect2EventListeners() {
 }
 
 function selectNum1(event) {
-    num1String += event.target.id
+    if (num1String.length == 15) {
+        num1String = "999999999999999";
+    } else {
+    num1String += event.target.id;
+    }
     displayNumber(num1String);
     console.log("num1 " + num1String);
-    setOperator();
+    if (countSetOperator === 0) {
+        setOperator();
+        countSetOperator++;
+    }
 }
 
 function selectNum2(event) {
     if (num1String) {
+        if (num2String.length == 15) {
+            num2String = "999999999999999";
+        } else {
         num2String += event.target.id;
+        }
         displayNumber(num2String);
         console.log("num2: " + num2String);
     }
@@ -143,19 +155,30 @@ function displayResult(result) {
 
 function add(num1, num2) {
     result = num1 + num2;
+    if (result > 999999999999999) {
+        result = 999999999999999;
+    }
 }
 
 function subtract(num1, num2) {
     result = num1 - num2;
-    console.log("result is: " + result);
+    if (result > 999999999999999) {
+        result = 999999999999999;
+    }
 }
 
 function multiply(num1, num2) {
     result = num1 * num2;
+    if (result > 999999999999999) {
+        result = 999999999999999;
+    }
 }
 
 function divide(num1, num2) {
     result = num1 / num2;
+    if (result > 999999999999999) {
+        result = 999999999999999;
+    }
 }
 
 function operate(operation, num1, num2) {
