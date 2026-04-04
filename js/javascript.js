@@ -7,9 +7,9 @@ const equalSign = document.querySelector("#equal-sign");
 // let isSubtractionActive = false;
 // let isMultiplicationActive = false;
 // let isDivisionActive = false;
-let operation = "";
-let number1;
-let number2;
+let operationString = "";
+let num1String = "";
+let num2String = "";
 let result;
 
 // setting and removing event listeners
@@ -18,7 +18,7 @@ function addSelect1EventListeners() {
     numbers.forEach((button) => {
         if(!button.classList.contains("operator") &&
             button.id !== "blank" &&
-            !number1
+            !num1String
         ) {
             button.addEventListener("click", selectNum1);
         }
@@ -29,7 +29,7 @@ function addSelect2EventListeners() {
     numbers.forEach((button) => {
         if(!button.classList.contains("operator") &&
             button.id !== "blank" &&
-            number1
+            num1String
         ) {
             button.addEventListener("click", selectNum2);
         }
@@ -40,7 +40,7 @@ function removeSelect1EventListeners() {
     numbers.forEach((button) => {
         if(!button.classList.contains("operator") &&
             button.id !== "blank" &&
-            number1
+            num1String
         ) {
             button.removeEventListener("click", selectNum1);
         }
@@ -50,7 +50,7 @@ function removeSelect2EventListeners() {
     numbers.forEach((button) => {
         if(!button.classList.contains("operator") &&
             button.id !== "blank" &&
-            number1
+            num1String
         ) {
             button.removeEventListener("click", selectNum2);
         }
@@ -58,57 +58,48 @@ function removeSelect2EventListeners() {
 }
 
 function selectNum1(event) {
-    displayNumber(event.target);
-    number1 = Number(event.target.id);
-    console.log("Num1 " + number1);
+    num1String += event.target.id
+    displayNumber(num1String);
+    console.log("num1 " + num1String);
     setOperator();
 }
 
 function selectNum2(event) {
-    if (number1) {
-        event.target.removeEventListener("click", selectNum1);
-        displayNumber(event.target);
-        number2 = Number(event.target.id);
-        console.log("num2: " + number2);
+    if (num1String) {
+        num2String += event.target.id;
+        displayNumber(num2String);
+        console.log("num2: " + num2String);
     }
 }
 
 function setOperator() {
-    if (number1 && !operation) {
+    if (num1String && !operationString) {
         operators.forEach((button) => {
             button.addEventListener("click", () => {
             switch (button.id) {
                 case "addition":
-                    removeOperatorBackground(operation);
-                    operation = "isAdditionActive";
-                    console.log("The operation is: " + operation);
-                    removeSelect1EventListeners();
-                    addSelect2EventListeners();
-                    setOperatorBackground(operation);
+                    removeOperatorBackground(operationString);
+                    operationString = "isAdditionActive";
+                    console.log("The operation is: " + operationString);
+                    setOperatorBackground(operationString);
                     break;
                 case "subtraction":
-                    removeOperatorBackground(operation);
-                    operation = "isSubtractionActive";
-                    console.log("The operation is: " + operation);
-                    removeSelect1EventListeners();
-                    addSelect2EventListeners();
-                    setOperatorBackground(operation);
+                    removeOperatorBackground(operationString);
+                    operationString = "isSubtractionActive";
+                    console.log("The operation is: " + operationString);
+                    setOperatorBackground(operationString);
                     break;
                 case "multiplication":
-                    removeOperatorBackground(operation);
-                    operation = "isMultiplicationActive";
-                    console.log("The operation is: " + operation);
-                    removeSelect1EventListeners();
-                    addSelect2EventListeners();
-                    setOperatorBackground(operation);
+                    removeOperatorBackground(operationString);
+                    operationString = "isMultiplicationActive";
+                    console.log("The operation is: " + operationString);
+                    setOperatorBackground(operationString);
                     break;
                 case "division":
-                    removeOperatorBackground(operation);
-                    operation = "isDivisionActive";
-                    console.log("The operation is: " + operation);
-                    removeSelect1EventListeners();
-                    addSelect2EventListeners();
-                    setOperatorBackground(operation);
+                    removeOperatorBackground(operationString);
+                    operationString = "isDivisionActive";
+                    console.log("The operation is: " + operationString);
+                    setOperatorBackground(operationString);
                     break;
                 default: 
                 console.log("Equal sign was pressed");
@@ -134,12 +125,14 @@ function setOperatorBackground(operation) {
         default:
             console.log("Some undefined operation");
     }
+    removeSelect1EventListeners();
+    addSelect2EventListeners();
 }
 
 // displaying
 
 function displayNumber(num) {
-    display.textContent = num.id;
+    display.textContent = num;
 }
 
 function displayResult(result) {
@@ -166,48 +159,50 @@ function divide(num1, num2) {
 }
 
 function operate(operation, num1, num2) {
+    num1 = +num1String;
+    num2 = +num2String;
     switch (operation) {
         case "isAdditionActive":
             add(num1, num2);
             displayResult(result);
-            operation = null;
-            number1 = result;
+            operationString = "";
+            num1String = result;
             console.log("Num1 is: " +  num1);
-            number2 = null;
-            result = null;
+            num2String = "";
+            result = "";
             removeSelect2EventListeners();
             operators.forEach(button => button.classList.remove("operator-selected"));
             break;
         case "isSubtractionActive":
             subtract(num1, num2);
             displayResult(result);
-            operation = null;
-            number1 = result;
+            operationString = "";
+            num1String = result;
             console.log("Num1 is: " +  num1);
-            number2 = null;
-            result = null;
+            num2String = "";
+            result = "";
             removeSelect2EventListeners();
             operators.forEach(button => button.classList.remove("operator-selected"));
             break;
         case "isMultiplicationActive":
             multiply(num1, num2);
             displayResult(result);
-            operation = null;
-            number1 = result;
+            operationString = "";
+            num1String = result;
             console.log("Num1 is: " +  num1);
-            number2 = null;
-            result = null;
+            num2String = "";
+            result = "";
             removeSelect2EventListeners();
             operators.forEach(button => button.classList.remove("operator-selected"));
             break;
         case "isDivisionActive":
             divide(num1, num2);
             displayResult(result);
-            operation = null;
-            number1 = result;
+            operationString = "";
+            num1String = result;
             console.log("Num1 is: " +  num1);
-            number2 = null;
-            result = null;
+            num2String = "";
+            result = "";
             removeSelect2EventListeners();
             operators.forEach(button => button.classList.remove("operator-selected"));
             break;
@@ -237,5 +232,5 @@ function removeOperatorBackground(operation) {
 
 addSelect1EventListeners();
 equalSign.addEventListener("click", () => {
-    return operate(operation, number1, number2);
+    return operate(operationString, num1String, num2String);
 });
