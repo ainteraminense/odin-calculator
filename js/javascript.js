@@ -1,9 +1,10 @@
 // initialize variables
-const numbers = document.querySelectorAll("button");
-const operators = document.querySelectorAll(".operator");
+const numbersBtn = document.querySelectorAll("button");
+const operatorsBtn = document.querySelectorAll(".operator");
 const display = document.querySelector(".result");
-const equalSign = document.querySelector("#equal-sign");
+const equalSignBtn = document.querySelector("#equal-sign");
 const userInfoBox = document.querySelector("#user-info-box");
+const clearBtn = document.querySelector("#clear");
 // let isAdditionActive = false;
 // let isSubtractionActive = false;
 // let isMultiplicationActive = false;
@@ -17,10 +18,8 @@ let result;
 // setting and removing event listeners
 
 function addSelect1EventListeners() {
-    numbers.forEach((button) => {
-        if(!button.classList.contains("operator") &&
-            button.id !== "blank" &&
-            !num1String
+    numbersBtn.forEach((button) => {
+        if(!button.classList.contains("operator")
         ) {
             button.addEventListener("click", selectNum1);
         }
@@ -28,7 +27,7 @@ function addSelect1EventListeners() {
 }
 
 function addSelect2EventListeners() {
-    numbers.forEach((button) => {
+    numbersBtn.forEach((button) => {
         if(!button.classList.contains("operator") &&
             button.id !== "blank" &&
             num1String
@@ -39,7 +38,7 @@ function addSelect2EventListeners() {
 }
 
 function removeSelect1EventListeners() {
-    numbers.forEach((button) => {
+    numbersBtn.forEach((button) => {
         if(!button.classList.contains("operator") &&
             button.id !== "blank" &&
             num1String
@@ -49,12 +48,21 @@ function removeSelect1EventListeners() {
     });
 }
 function removeSelect2EventListeners() {
-    numbers.forEach((button) => {
+    numbersBtn.forEach((button) => {
         if(!button.classList.contains("operator") &&
-            button.id !== "blank" &&
+            button.id !== "clear" &&
             num1String
         ) {
             button.removeEventListener("click", selectNum2);
+        }
+    });
+}
+function removeOperatorEventListeners() {
+    operatorsBtn.forEach((button) => {
+        if(button.classList.contains("operator")
+        ) {
+            button.removeEventListener("click", setOperator);
+            button.removeEventListener("click", setOperatorBackground);
         }
     });
 }
@@ -87,7 +95,7 @@ function selectNum2(event) {
 
 function setOperator() {
     if (num1String && !operationString) {
-        operators.forEach((button) => {
+        operatorsBtn.forEach((button) => {
             button.addEventListener("click", () => {
             switch (button.id) {
                 case "addition":
@@ -195,7 +203,7 @@ function operate(operation, num1, num2) {
             num2String = "";
             result = "";
             removeSelect2EventListeners();
-            operators.forEach(button => button.classList.remove("operator-selected"));
+            operatorsBtn.forEach(button => button.classList.remove("operator-selected"));
             break;
         case "isSubtractionActive":
             subtract(num1, num2);
@@ -206,7 +214,7 @@ function operate(operation, num1, num2) {
             num2String = "";
             result = "";
             removeSelect2EventListeners();
-            operators.forEach(button => button.classList.remove("operator-selected"));
+            operatorsBtn.forEach(button => button.classList.remove("operator-selected"));
             break;
         case "isMultiplicationActive":
             multiply(num1, num2);
@@ -217,7 +225,7 @@ function operate(operation, num1, num2) {
             num2String = "";
             result = "";
             removeSelect2EventListeners();
-            operators.forEach(button => button.classList.remove("operator-selected"));
+            operatorsBtn.forEach(button => button.classList.remove("operator-selected"));
             break;
         case "isDivisionActive":
             divide(num1, num2);
@@ -228,7 +236,7 @@ function operate(operation, num1, num2) {
             num2String = "";
             result = "";
             removeSelect2EventListeners();
-            operators.forEach(button => button.classList.remove("operator-selected"));
+            operatorsBtn.forEach(button => button.classList.remove("operator-selected"));
             break;
         default:
             console.log("Some undefined operation");
@@ -250,12 +258,12 @@ function removeOperatorBackground(operation) {
             document.querySelector("#division").classList.remove("operator-selected");
             break;
         default:
-            console.log("Some undefined operation");
+            console.log("Some undefined operation or clear button pressed");
     }
 }
 
 addSelect1EventListeners();
-equalSign.addEventListener("click", () => {
+equalSignBtn.addEventListener("click", () => {
     userInfoBox.style.color = "black";
     userInfoBox.style.background = "white";
     if (!num1String || !num2String || !operationString) {
@@ -264,4 +272,17 @@ equalSign.addEventListener("click", () => {
     } else {
         return operate(operationString, num1String, num2String);
     }
+});
+clearBtn.addEventListener("click", () => {
+    removeSelect2EventListeners();
+    removeOperatorBackground(operationString);
+    //removeOperatorEventListeners();
+    countSetOperator = 0;
+    addSelect1EventListeners();
+    userInfoBox.style.color = "black";
+    userInfoBox.style.background = "white";
+    num1String = "";
+    num2String = "";
+    operationString = "";
+    display.textContent = "";
 });
