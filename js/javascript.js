@@ -3,6 +3,7 @@ const numbers = document.querySelectorAll("button");
 const operators = document.querySelectorAll(".operator");
 const display = document.querySelector(".result");
 const equalSign = document.querySelector("#equal-sign");
+const userInfoBox = document.querySelector("#user-info-box");
 // let isAdditionActive = false;
 // let isSubtractionActive = false;
 // let isMultiplicationActive = false;
@@ -255,5 +256,12 @@ function removeOperatorBackground(operation) {
 
 addSelect1EventListeners();
 equalSign.addEventListener("click", () => {
-    return operate(operationString, num1String, num2String);
+    userInfoBox.style.color = "black";
+    userInfoBox.style.background = "white";
+    if (!num1String || !num2String || !operationString) {
+        userInfoBox.style.color = "red";
+        userInfoBox.style.background = "yellow";
+    } else {
+        return operate(operationString, num1String, num2String);
+    }
 });
