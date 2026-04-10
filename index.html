@@ -8,51 +8,55 @@
 </head>
 <body>
     <h1>Calculator</h1>
-    <div class="calculator">
-        <div class="display">
-            <div class="result"></div>
+    <div class="main">
+        <div class="calculator">
+            <div class="display">
+                <div class="result"></div>
+            </div>
+            <div class="buttons">
+                <div class="row1">
+                    <button id="7">7</button>
+                    <button id="8">8</button>
+                    <button id="9">9</button>
+                    <button id="division" class="operator">÷</button>
+                </div>
+                <div class="row2">
+                    <button id="6">6</button>
+                    <button id="5">5</button>
+                    <button id="4">4</button>
+                    <button id="multiplication" class="operator">x</button>
+                </div>
+                <div class="row3">
+                    <button id="3">3</button>
+                    <button id="2">2</button>
+                    <button id="1">1</button>
+                    <button id="subtraction" class="operator">-</button>
+                </div>
+                <div class="row4">
+                    <button id="0">0</button>
+                    <button id="clear" class="operator">Clear</button>
+                    <button id="equal-sign" class="operator">=</button>
+                    <button id="addition" class="operator">+</button>
+                </div>
+            </div>
         </div>
-        <div class="buttons">
-            <div class="row1">
-                <button id="7">7</button>
-                <button id="8">8</button>
-                <button id="9">9</button>
-                <button id="division" class="operator">÷</button>
-            </div>
-            <div class="row2">
-                <button id="6">6</button>
-                <button id="5">5</button>
-                <button id="4">4</button>
-                <button id="multiplication" class="operator">x</button>
-            </div>
-            <div class="row3">
-                <button id="3">3</button>
-                <button id="2">2</button>
-                <button id="1">1</button>
-                <button id="subtraction" class="operator">-</button>
-            </div>
-            <div class="row4">
-                <button id="0">0</button>
-                <button id="clear" class="operator">Clear</button>
-                <button id="equal-sign" class="operator">=</button>
-                <button id="addition" class="operator">+</button>
-            </div>
+        <div id="user-info-box">
+            <div id="divide-by-zero-warning"></div>
+            <h2>How to use the calculator</h2>
+            <ol>
+                <li>Begin by selecting first operand</li>
+                <li>Next choose the operator</li>
+                <li>Then select second operand</li>
+                <li>Finally press the equal sign to calculate the result</li>
+                <li>
+                    <ul>
+                        <br>
+                        <li>Continue by choosing an operator and operand to be computed with the result for desired number of times</li>
+                        <li>Press the button clear to return to the blank slate</li>
+                    </ul>
+                </li>
+            </ol>
         </div>
-    </div>
-    <div id="user-info-box">
-        <h2>How to use the calculator</h2>
-        <ol>
-            <li>Begin by selecting first operand</li>
-            <li>Next choose the operator</li>
-            <li>Then select second operand</li>
-            <li>Finally press the equal sign to calculate the result</li>
-            <li>
-                <ul>
-                    <li>Continue by choosing an operator and operand to be computed with the result for desired number of times</li>
-                    <li>Press the button clear to return to the blank slate</li>
-                </ul>
-            </li>
-        </ol>
     </div>
     <script src="js/javascript.js"></script>
 </body>

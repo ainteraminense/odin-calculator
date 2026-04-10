@@ -5,6 +5,7 @@ const display = document.querySelector(".result");
 const equalSignBtn = document.querySelector("#equal-sign");
 const userInfoBox = document.querySelector("#user-info-box");
 const clearBtn = document.querySelector("#clear");
+const divideByZeroWarning = document.querySelector("#divide-by-zero-warning");
 // let isAdditionActive = false;
 // let isSubtractionActive = false;
 // let isMultiplicationActive = false;
@@ -184,15 +185,17 @@ function multiply(num1, num2) {
 }
 
 function divide(num1, num2) {
-    result = num1 / num2;
-    if (result > 999999999999999) {
-        result = 999999999999999;
-    }
+        result = num1 / num2;
+        if (result > 999999999999999) {
+            result = 999999999999999;
+        }
+
 }
 
 function operate(operation, num1, num2) {
     num1 = +num1String;
     num2 = +num2String;
+    divideByZeroWarning.textContent = "";
     switch (operation) {
         case "isAdditionActive":
             add(num1, num2);
@@ -201,7 +204,6 @@ function operate(operation, num1, num2) {
             num1String = result;
             console.log("Num1 is: " +  num1);
             num2String = "";
-            result = "";
             removeSelect2EventListeners();
             operatorsBtn.forEach(button => button.classList.remove("operator-selected"));
             break;
@@ -212,7 +214,6 @@ function operate(operation, num1, num2) {
             num1String = result;
             console.log("Num1 is: " +  num1);
             num2String = "";
-            result = "";
             removeSelect2EventListeners();
             operatorsBtn.forEach(button => button.classList.remove("operator-selected"));
             break;
@@ -223,18 +224,23 @@ function operate(operation, num1, num2) {
             num1String = result;
             console.log("Num1 is: " +  num1);
             num2String = "";
-            result = "";
             removeSelect2EventListeners();
             operatorsBtn.forEach(button => button.classList.remove("operator-selected"));
             break;
         case "isDivisionActive":
-            divide(num1, num2);
+             // warn user about dividing by zero
+            if (num2 === 0) {
+                divideByZeroWarning.textContent = "You can't divide by zero, please visit a math school";
+                num2String = "";
+                result ? displayResult(result) : displayResult(num1String);
+            } else {
+                divide(num1, num2);
+            }
             displayResult(result);
             operationString = "";
             num1String = result;
             console.log("Num1 is: " +  num1);
             num2String = "";
-            result = "";
             removeSelect2EventListeners();
             operatorsBtn.forEach(button => button.classList.remove("operator-selected"));
             break;
@@ -273,6 +279,7 @@ equalSignBtn.addEventListener("click", () => {
         return operate(operationString, num1String, num2String);
     }
 });
+
 clearBtn.addEventListener("click", () => {
     removeSelect2EventListeners();
     removeOperatorBackground(operationString);
